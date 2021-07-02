@@ -24,12 +24,12 @@ Investigador post-doctoral de la Pontificia Universidad Católica de Valparaíso
 Subtópico 1.1.- Introducción a R, Rstudio y Rmarkdwon.
 Subtópico 1.2.- Variables aleatorias y distribuciones de probabilidad. Subtópico 1.3.- Análisis exploratorio de datos.
 
-**UNIDAD 2. PRUEBAS DE CONTRASTES DE HIPÓTESIS PARAMÉTRICAS Y NO PARAMÉTRICAS
+**UNIDAD 2. PRUEBAS DE CONTRASTES DE HIPÓTESIS PARAMÉTRICAS Y NO PARAMÉTRICAS**
 
 Subtópico 2.1.– Pruebas de contraste de hipótesis paramétrica.
 Subtópico 2.2.– Pruebas de contraste de hipótesis no paramétrica.
 
-**UNIDAD 3. MODELOS LINEALES
+**UNIDAD 3. MODELOS LINEALES**
 
 Subtópico 3.1.- Modelos lineales.
 Subtópico 3.2.- Modelos lineales mixtos y modelos lineales generalizados
