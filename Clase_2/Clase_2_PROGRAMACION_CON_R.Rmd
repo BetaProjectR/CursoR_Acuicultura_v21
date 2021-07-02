@@ -53,7 +53,7 @@ knitr::opts_chunk$set(echo = FALSE)
 </div>
 
 <div class="black">
-**1).** **¿ Por qué deseas hacer análisis de datos con R?**
+**1).** **¿Qué problemas has tenido al realizar análisis de datos?**
 
 **2).** **¿ Qué problemas has tenido cuando quieres rehacer un análisis de datos a partir de un set de datos antiguo o en el que no has trabajado por mucho tiempo?**
 </div>
