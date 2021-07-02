@@ -1,5 +1,5 @@
 ---
-title: "Clase 2 - Programación con R y Rstudio cloud"
+title: "Clase 2 - Programación con R y Rstudio"
 subtitle: 'Curso Introducción al Análisis de datos con R para la acuicultura'
 author: Dr. José Gallardo Matus y Dra. María Angélica Rueda.  Pontificia Universidad Católica de Valparaíso  <jose.gallardo@pucv.cl>    
 date: "`r format(Sys.time(), '%d %B %Y')`"
@@ -26,31 +26,25 @@ knitr::opts_chunk$set(echo = FALSE)
 
 - **Preguntas al curso.**
 
-- **Estudio de caso.**
+- **¿Qué es R y Rstudio?**
 
-- **Investigación reproducible.**
+- **¿Por qué usar R para el análisis de datos?**
 
-- **Software para el análisis de datos.**
+- **R en investigación reproducible.**
+
+- **¿Qué es un script?**
 
 <div class="black">
-**2).** **Práctica con R y Rstudio cloud**
+**2).** **Práctica con R y Rstudio (cloud)**
 </div>
 
 - **Iniciar un proyecto de análisis de datos con R.**
 
-- **Escribir un código de programación o script.**
+- **Escribir un script.**
 
 - **Familiarizarse con manipulación de objetos y datos.**
 
 
-## {.flexbox .vcenter}
-<div class="black">
-<div class="centered">
-**Introducción**
-
-**_Clase 2 – Programación con R_**
-</div>
-</div>
 ## 
 <div class="centered">
 <div class="black">
@@ -62,77 +56,6 @@ knitr::opts_chunk$set(echo = FALSE)
 **1).** **¿ Por qué deseas hacer análisis de datos con R?**
 
 **2).** **¿ Qué problemas has tenido cuando quieres rehacer un análisis de datos a partir de un set de datos antiguo o en el que no has trabajado por mucho tiempo?**
-</div>
-
-## 
-
-
-**INVESTIGACIÓN REPRODUCIBLE**
-
-</div>
-</div>
-
-<div class="centered">
-<div class="black">
-**Investigación reproducible** implica que desde los mismos datos y códigos se generarán los mismos resultados.
-
-</div>
-</div>
-<div class="columns-1">
-```{r, echo=FALSE, out.width = '70%' }
-knitr::include_graphics("Investigacion_reproducible.png")
-```
-</div>
-
-## 
-<div class="centered">
-<div class="black">
-
-**ALGUNOS CRITERIOS DE REPRODUCIBILIDAD**
-
-</div>
-</div>
-
-<div class="black">
-- **Los datos originales están disponibles en la nube.**
-- Los datos están almacenados en formato abierto (texto) .
-- **Todo el análisis y manejo de datos se hace mediante código.**
-- El código genera las tablas y figuras finales.
-- **Los datos brutos están separados de los datos derivados.**
-- Existe un **_‘script’_** maestro que ejecuta todos los pasos del análisis ordenadamente.
-- **Existe un documento README que explica los objetivos y organización del proyecto.**
-- Tanto el reporte, como los datos y código son públicos.
-</div>
-
-
-## 
-<div class="centered">
-<div class="black">
-
-**BENEFICIOS DE LA CIENCIA REPRODUCIBLE PARA EL ANALISTA DE DATOS**
-
-</div>
-</div>
-
-<div class="black">
-
-- **Permite la ejecución de tareas de análisis repetitivo sin esfuerzo.**
-- Muy fácil corregir y regenerar resultados, tablas y figuras.
-- **Reducción drástica del riesgo de errores.**
-- Facilitan la colaboración.
-- **Mayor facilidad para escribir reportes.**
-- Facilita el proceso de revisión.
-- **Ahorro de tiempo y esfuerzo al reutilizar código en otros proyectos.**
-</div>
-
-## 
-
-<div class="centered">
-<div class="black">
-
-**RUTA DEL ANÁLISIS DE DATOS REPRODUCIBLE**
-
-</div>
 </div>
 
 ## 
@@ -158,7 +81,7 @@ knitr::include_graphics("Investigacion_reproducible.png")
 <div class="centered">
 <div class="black">
 
-**¿POR QUÉ USAR "R" EN CIENCIA REPRODUCIBLE?**
+**¿POR QUÉ USAR "R"?**
 
 </div>
 </div>
@@ -172,10 +95,90 @@ knitr::include_graphics("Investigacion_reproducible.png")
 - **R** permite entonces difundir el conocimiento a toda la sociedad y no solo a los que pueden pagar por ella.
 </div>
 
+## 
+<div class="centered">
+<div class="black">
+
+**BENEFICIOS USAR R PARA EL ANALISTA DE DATOS**
+
+</div>
+</div>
+
+<div class="black">
+
+- **Permite la ejecución de tareas de análisis repetitivo sin esfuerzo.**
+- Muy fácil corregir y regenerar resultados, tablas y figuras.
+- **Reducción drástica del riesgo de errores.**
+- Facilita la colaboración.
+- **Mayor facilidad para escribir reportes.**
+- Facilita el proceso de revisión.
+- **Ahorro de tiempo y esfuerzo al reutilizar código en otros proyectos.**
+</div>
 
 ## 
 <div class="centered">
 <div class="black">
+
+## 
+
+**R EN INVESTIGACIÓN REPRODUCIBLE**
+
+</div>
+</div>
+
+<div class="centered">
+<div class="black">
+Trabajar con R permite realizar **Investigación reproducible**. 
+La investigación reproducible implica que desde los mismos datos y códigos se generarán los mismos resultados.
+
+</div>
+</div>
+<div class="columns-1">
+```{r, echo=FALSE, out.width = '100%' }
+knitr::include_graphics("Investigacion_reproducible.png")
+```
+</div>
+
+## 
+<div class="centered">
+<div class="black">
+
+**ALGUNOS CRITERIOS DE REPRODUCIBILIDAD**
+
+</div>
+</div>
+
+<div class="black">
+- **Los datos originales están disponibles en la nube.**
+- Los datos están almacenados en formato abierto (texto) .
+- **Todo el análisis y manejo de datos se hace mediante código.**
+- El código genera las tablas y figuras finales.
+- **Los datos brutos están separados de los datos derivados.**
+- Existe un **_‘script’_** maestro que ejecuta todos los pasos del análisis ordenadamente.
+- **Existe un documento README que explica los objetivos y organización del proyecto.**
+- Tanto el reporte, como los datos y código son públicos.
+</div>
+
+## 
+
+<div class="centered">
+<div class="black">
+
+**RUTA DEL ANÁLISIS DE DATOS REPRODUCIBLE CON R**
+
+- Toma de datos.    
+Es importante estandarizar y mantener estructura.   
+- Manipulación de datos.  
+Es importante cuidar los datos originales, trabajaremos con R + Rstudio  
+- Análisis datos integrado con texto.  
+Facilita la colaboración, trabajaremos R + Rstudio + Markdown
+- Publicar resultados.  
+Es importante comunicar de forma efectiva
+
+</div>
+</div>
+
+##
 
 **¿QUÉ ES R STUDIO?**
 
@@ -194,7 +197,10 @@ knitr::include_graphics("Investigacion_reproducible.png")
 ## 
 <div class="centered">
 <div class="black">
+
 **R ES UN LENGUAJE ORIENTADO A OBJETOS**
+
+**Ejemplo del objeto "Bombero"**
 </div>
 </div>
 <div class="columns-2">
@@ -203,24 +209,49 @@ knitr::include_graphics("Investigacion_reproducible.png")
 <div class="black">
 <div class="centered">
 
-* Trabajan ad honoren.
+* En Chile trabajan *ad honoren*.
 * Apagan incendios.
-* Puede usar diferentes equipos.
+* Pueden usar diferentes equipos.
 * Reciben instrucciones sobre como apagar un incendio.
-* No pueden detener a ladrones.
+* Pero, no pueden detener a ladrones, ni dirigir el transito (Objeto policía).
 
-* Almacenan texto o números.
-* Primera fila contiene el nombre de variables.
-* Puedo unir con otro **data.frame**.
-* Puedo aplicar funciones para calcular estadísticos.
-* No tiene atributos de una matriz.
 </div>
 </div>
 </div>
 
 ##
 
-matrix
+**R ES UN LENGUAJE ORIENTADO A OBJETOS 2**
+
+**Objeto data.frame**
+</div>
+</div>
+<div class="columns-2">
+
+
+<div class="black">
+<div class="centered">
+
+* Objeto similar a una tabla de datos.
+* Almacenan texto o números.
+* Primera fila contiene el nombre de las variables.
+* Puedo unir con otro **data.frame**.
+* Puedo aplicar funciones para calcular estadísticos.
+* Pero, no tiene atributos de una matriz, ni de un vector, ni es una serie de tiempo.
+</div>
+</div>
+</div>
+
+##
+
+**TIPOS DE OBJETOS PARA TRABAJAR CON R**
+
+</div>
+</div>
+```{r, echo=FALSE, out.width = '100%' }
+knitr::include_graphics("ObjetosR.png")
+```
+</div>
 
 
 ## 
@@ -241,7 +272,7 @@ Estos archivos son iguales a cualquier documentos de texto, pero **R puede leer 
 
 Los códigos de **R** están contenidos en librerías o packages.
 
-Algunos **_script_** que usaremos en este curso tienen extensión de archivo **.R**, por ejemplo mi_script.R o **.Rmd** (Rmarkdown) por ejemplo reporte.Rmd.
+Algunos **_script_** que usaremos en este curso tienen extensión de archivo **.R**, por ejemplo mi_script.R o **.Rmd** (R+markdown) por ejemplo reporte.Rmd.
 
 </div>
 
