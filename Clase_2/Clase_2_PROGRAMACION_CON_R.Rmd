@@ -99,7 +99,7 @@ knitr::opts_chunk$set(echo = FALSE)
 <div class="centered">
 <div class="black">
 
-**BENEFICIOS USAR R PARA EL ANALISTA DE DATOS**
+**BENEFICIOS DE USAR R PARA EL ANALISTA DE DATOS**
 
 </div>
 </div>
@@ -176,22 +176,6 @@ Facilita la colaboración, trabajaremos R + Rstudio + Markdown
 Es importante comunicar de forma efectiva
 
 </div>
-</div>
-
-##
-
-**¿QUÉ ES R STUDIO?**
-
-</div>
-</div>
-
-<div class="black">
-
-* **Rstudio** es el más popular entorno de desarrollo integrado (integrated development environment, IDE) para trabajar con **R**.
-
-* **Rstudio** es un **_software_** libre y de código abierto creado por **Joseph J. Allaire en 2009** para la ciencia de datos, la investigación científica y la comunicación técnica.
-
-* Actualmente es mantenido por la Corporación de Beneficio Público **Rstudio PCB**, la que ha creado otros software como Rmarkdown.
 </div>
 
 ## 
@@ -282,45 +266,47 @@ Algunos **_script_** que usaremos en este curso tienen extensión de archivo **.
 <div class="black">
 
 **EJEMPLO DE SCRIPT R**
+```{r, echo=FALSE, out.width = '100%' }
+knitr::include_graphics("script.png")
+```
+</div>
+</div>
+
+##
+
+**¿QUÉ ES R STUDIO?**
 
 </div>
 </div>
 
-## {.flexbox .vcenter}
 <div class="black">
+
+* **Rstudio** es el más popular entorno de desarrollo integrado (integrated development environment, IDE) para trabajar con **R**.
+
+* **Rstudio** es un **_software_** libre y de código abierto creado por **Joseph J. Allaire en 2009** para la ciencia de datos, la investigación científica y la comunicación técnica.
+
+* Actualmente es mantenido por la Corporación de Beneficio Público **Rstudio PCB**, la que ha creado otros software como Rmarkdown.
+</div>
+
+## 
+
 <div class="centered">
+<div class="black">
+
+**EJEMPLO RSTUDIO - VERSION CLOUD**
+
+```{r, echo=FALSE, out.width = '100%' }
+knitr::include_graphics("rstudio.png")
+```
+</div>
+</div>
+
+## 
+
+<div class="centered">
+<div class="black">
+
 **Práctica con R y Rstudio**
-
-**_Clase 2 – Programación con R_**
-</div>
-</div>
-
-## 
-
-<div class="centered">
-<div class="black">
-
-**EXPLORAR R STUDIO CLOUD**
-
-</div>
-</div>
-
-## 
-
-<div class="centered">
-<div class="black">
-
-**EXPLORAR R STUDIO**
-
-</div>
-</div>
-
-## 
-
-<div class="centered">
-<div class="black">
-
-**TRABAJO EN SALAS**
 
 </div>
 </div>
@@ -328,7 +314,7 @@ Algunos **_script_** que usaremos en este curso tienen extensión de archivo **.
 <div class="black">
 **1).** **Guía de trabajo programación con R disponible en drive.**
 
-**2).** **La tarea se realiza en Rstudio.cloud**. Ingresa al siguiente proyecto de **[Rstudio.Cloud](https://rstudio.cloud/spaces/135178/project/2447826/)** 
+**2).** **La tarea se realiza en Rstudio.cloud**. Ingresa al siguiente proyecto de **[Rstudio.Cloud](https://rstudio.cloud/spaces/153136/project/2684759)** 
 
 </div>
 
@@ -344,8 +330,6 @@ Algunos **_script_** que usaremos en este curso tienen extensión de archivo **.
 </div>
 
 <div class="black">
-
-* Paradigma de la investigación reproducible.
 
 * Ruta del análisis de datos reproducible con **R**.
 
