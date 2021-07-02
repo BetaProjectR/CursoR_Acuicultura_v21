@@ -1,7 +1,5 @@
 # Curso Introducción al Análisis de Datos con R para la Acuicultura
 
-Diplomado en Análisis de Datos con R para la Acuicultura versión 2021.
-
 **DIRIGIDO A:**
 
 Estudiantes, profesionales o graduados relacionados con las ciencias de la acuicultura, incluyendo Acuicultores, Agropecuarios, Biólogos, Biólogos Marinos, Biotecnólogos, Ingenieros Pesqueros, Ingenieros Agrónomos, Oceanógrafos, Veterinarios o Zootecnistas.
