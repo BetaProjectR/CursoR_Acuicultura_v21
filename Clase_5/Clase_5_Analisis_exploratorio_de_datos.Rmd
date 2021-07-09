@@ -348,7 +348,7 @@ camaronBoxplot + My_Theme + labs(y="Camaron weight (g) ± s.d.", x = "")
 
 ## PRÁCTICA ANÁLISIS DE DATOS
 1.- Guía de trabajo Rmarkdown disponible en drive.  
-**Clase_5**
+**Clase_05**
 
 2.- La tarea se realiza en Rstudio.cloud.
 **05 Análisis exploratorio de datos**
