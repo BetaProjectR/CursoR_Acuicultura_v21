@@ -1,6 +1,6 @@
 ---
 title: "Guía de trabajo inferencia estadística"
-subtitle: 'Diplomado en Análisis de datos con R para la acuicultura'
+subtitle: 'Curso Introducción al Análisis de datos con R para la acuicultura'
 author:
  name: Dr. José A. Gallardo y Dra. María Angélica Rueda.
  affiliation: Pontificia Universidad Católica de Valparaíso

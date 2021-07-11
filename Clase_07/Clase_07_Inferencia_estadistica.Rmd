@@ -1,5 +1,5 @@
 ---
-title: "Clase 10 Inferencia estadística"
+title: "Clase 07 Inferencia estadística"
 author: Dr. José A. Gallardo  |  <jose.gallardo@pucv.cl>  |  Pontificia Universidad
   Católica de Valparaíso
 date: "`r format(Sys.time(), '%d %B %Y')`"
