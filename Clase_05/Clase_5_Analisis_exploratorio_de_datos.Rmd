@@ -37,7 +37,7 @@ library(grid)
 
 ## PREGUNTAS AL CURSO.
 
-**Obj*:** Identificar conceptos importantes para realizar un análisis exploratorio de datos.
+**Obj:** Identificar conceptos importantes para realizar un análisis exploratorio de datos.
 
 A.	Varianza.
 B.	Covarianza.

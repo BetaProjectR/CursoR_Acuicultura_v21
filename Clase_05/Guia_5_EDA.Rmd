@@ -127,14 +127,14 @@ Borre los bloques de códigos R que se generan automáticamente con cada archivo
 Ejecute cada uno de los siguientes ejercicios en uno o más bloques de códigos diferentes. Sea ordenado y documente su reporte adecuadamente.
 
 ### **Ejercicio 4.** Explorar y visualizar variación de los datos con un histograma
-El archivo **"genotipos.xlsx"** contiene el registro de genotipos y peso de cosecha de 1000 salmones de un programa de mejora genética.
+El archivo **"salmon.xlsx"** contiene el registro de genotipos y peso de cosecha de 1000 salmones de un programa de mejora genética.
 
-**a)** Elabore un objeto denominado "datos" e importe el set de datos **genotipos.xslx** usando la función **read_excel()** de la librería **readxl**. Observe los datos con la función **summary()** y **str**. Note que las variables **id** y **genotipos** están codificadas como **character** y el **weight** como **numeric**
+**a)** Elabore un objeto denominado "datos" e importe el set de datos **salmon.xslx** usando la función **read_excel()** de la librería **readxl**. Observe los datos con la función **summary()** y **str**. Note que las variables **id** y **genotipos** están codificadas como **character** y el **weight** como **numeric**
 
 ```{r}
-datos <- read_excel("genotipos.xls")
+datos <- read_excel("salmon.xlsx")
 summary(datos)
-str(dtaos)
+str(datos)
 ```
 
 **b)** Transforme las variables **id** y **genotipos** a factor usando la función **as.factor()**. Luego, explore nuevamente el set de datos usando la función **summary()**. Finalmente, explore la variable **genotipos** con la función **table()**. Pruebe explorar la variable continua weight con la función **table()** y discuta con sus compañeros porqué esto **no es adecuado**.
@@ -203,6 +203,16 @@ ggplot(datos, aes(x=genotipo, y=weight, fill=genotipo)) +
   labs(y="Peso de cosecha (g)")
 ```
 
+**d)** agregue a al código anterior el comando **geom_jitter()** para viasualizar todos los datos de "Peso de cosecha (g)"
+
+```{r}
+ggplot(datos, aes(x=genotipo, y=weight, fill=genotipo)) +
+    geom_boxplot()+
+  labs(y="Peso de cosecha (g)")+
+geom_jitter(color="blue", size=1, alpha=2)
+```
+
+
 ### **Ejercicio 6.** Explorar y visualizar la interacción de dos factores
 El archivo **"tilapia.xlsx"** contiene el registro de pesosde 1000 tilapias de un experimento de alimentación con 6 dietas diferentes.
 
@@ -268,4 +278,34 @@ plot.design(tilapia$weight~ tilapia$sex * tilapia$feed, xlab = "Factores", ylab=
 
 ```
 
+### **Ejercicio 7.** Explorar y visualizar covariación de variables continuas.
+
+El archivo **"trucha.xlsx"** contiene el registro de peso del cuerpo y peso del filete de 100 truchas marinas.
+
+**a)** Importe el set de datos **trucha.xslx** usando la función **read_excel()** de la librería **readxl**. Explore el set de datos completo con la función **summary()**.
+
+```{r}
+trucha <- read_excel("trucha.xlsx")
+summary(trucha)
+```
+
+**b)** Investigue la función **pairs.panels()** de la librería **psych**. Use esta función para obtener histogramas, gráficas de densidad (density = TRUE) y correlación (method = "pearson") de todas las variables del set de datos.
+
+Responda: ¿Es adecuado incluir en este análisis la variable id?
+
+```{r}
+# Gráfica de correlación de variables continuas
+pairs.panels(trucha[,], method = "pearson", hist.col = "red",  density = TRUE, font=2)
+```
+
+**c)** Elimine la variable **id** del análisis anterior seleccionando las columnas 2 y 3 (trucha[,2:3]) y responda: 
+
+¿ Que tipo de distribución tienen las variables **weight** y **fillet**?
+
+¿Están correlacionadas las variables **weight** y **fillet**?
+
+```{r}
+# Gráfica de correlación de variables continuas
+pairs.panels(trucha[,2:3], method = "pearson", hist.col = "red",  density = TRUE, font=2)
+```
 
