@@ -173,6 +173,16 @@ Usualmente para variables discretas.
 knitr::include_graphics("No_par.png")
 ```
 
+## PRUEBA DE MANN-WHITNEY (W)
+
+Estudio de caso: Conducta agresiva (minutos de pelea) entre tilapias cultivadas en estanque mosexo (Tratamiento: solo machos) y estanques mixtos (Control: Machos y hembras) [**Link**](https://doi.org/10.1590/S1519-69842008000400015)
+
+|  **Tratamiento (T)** | **Control (C)**| 
+|:----------:|:---------:|
+| 9 | 0 |
+| 12 | 4 | 
+| 13 | 6 | 
+
 ## CÁCULO DE ESTADÍSTICO MANN-WHITNEY (W)
 
 **¿Cómo se calcula el estadístico W?**   
