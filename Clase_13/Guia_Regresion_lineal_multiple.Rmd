@@ -1,0 +1,216 @@
+---
+title: "Guía Regresión lineal múltiple"
+subtitle: 'Curso Introducción al Análisis de datos con R para la acuicultura'
+author:
+ name: Dr. José A. Gallardo y Dra. María Angélica Rueda.
+ affiliation: Pontificia Universidad Católica de Valparaíso
+ email: <jose.gallardo@pucv.cl>
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    code_folding: hide
+  word_document: default
+  pdf_document: default
+---
+
+<style>
+#TOC {
+  color: black;
+  font-familiy: Calibri;
+  font-size: 14px;
+  border-color: #708090; 
+}
+body {
+   color: black;
+   font-familiy: Calibri;
+}
+
+pre {
+  color: black;
+  background-color: #F8F8FF;
+}
+# header {
+  color: #800000;
+  font-familiy: Calibri;
+  background-color: #F5F5F5;
+  opacity: 0.8;
+  font-size: 16px;
+}
+</style>
+
+### MODELOS LINEALES
+
+Sea $Y$ una variable respuesta continua y $X_1,…,X_p$ variables predictoras, un modelo de regresión lineal múltiple se puede representar como,
+ 
+$$Y_{i} = \beta_{0} + \beta_{1} X_{i1} + \beta_{2} X_{i2} + ... + \beta_{p} X_{ip} + \epsilon_{i}$$
+
+Supuestos:
+
+1) No existe multicolinealidad.
+
+2) Los residuos distribuyen **normalmente**.
+
+3) Existe homogeneidad d evarianzas.
+
+
+#### **Objetivos de aprendizaje**
+
+Los objetivos de aprendizaje de esta guía son:
+
+**1**. - Realizar análisis de regresión lineal múltiple.
+
+**2**. - Realizar gráficas avanzadas con ggplot2. 
+
+**3**. - Elaborar un reporte dinámico en formato pdf con **[Rmarkdown](https://rmarkdown.rstudio.com/)**.
+
+#### EJERCICIOS
+
+## ESTUDIO DE CASO: PRODUCCIÓN DE CAMARONES
+
+En este estudio de caso trabajaremos con un set de datos simulado de 100 camarones cultivados bajo condiciones de campo. 
+
+La variable respuesta se denomina **trait_y** y las variables predictoras **Pred_X1**,**Pred_X2**,**Pred_X3**, **Pred_X4**. Todas ellas son variables cuantitativas continuas.
+
+### **Ejercicio 1.** Elaborar y configurar Reporte en formato .Rmd
+
+Elabore un documento .Rmd y configure su reporte para exportar en .pdf. Instale solo las liberías que utilice para el análisis de los datos.
+
+```{r setup, include=TRUE, warning=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(multcomp)
+library(psych)
+library(car)
+```
+
+Ejecute cada uno de los siguientes ejercicios en uno o más bloques de códigos diferentes. Sea ordenado y documente su reporte adecuadamente.
+
+### **Ejercicio 2.** Exploratorio set de datos aqua.dat
+
+Importe el set de datos **aqua.xlsx** y realice un análisis exploratorio de datos. 
+
+Incluya: 
+
+**a).** Resumen estadístico de todas las variables.
+
+```{r, warning=FALSE, message=FALSE}
+
+aqua.dat <- read_excel("aqua_dat.xlsx")
+summary(aqua.dat)
+
+```
+
+**b).** Realice un análisis y gráfica de correlación entre variables respuesta y predictoras. 
+
+¿Qué variables predictoras están están altamente correlacionadas entre sí? Recuerde que esto puede ser evidencia de multicolinealidad.
+
+```{r, warning=FALSE, message=FALSE}
+
+pairs.panels(aqua.dat[2:6])
+```
+
+**c).** Histograma de la variable respuesta **trait_y**.
+
+```{r, warning=FALSE, message=FALSE}
+
+ggplot(aqua.dat, aes(x=trait_y))+
+  geom_histogram(color="darkblue", fill="lightblue")
+
+```
+
+### **Ejercicio 3.** Regresión lineal múltiple - modelo completo.
+
+**a).** Realice un análisis de regresión lineal para investigar la asociación entre **trait_y** y todas las variables predictoras usando las funciones **lm()**, **summary()**. 
+
+Interprete los resultados del modelo lineal y responda las siguientes preguntas:   
+- ¿Qué representa los diferentes estimadores Beta?. 
+- ¿Qué pendientes son significativamente distintas de cero?. 
+- ¿Cuál es la bondad de ajuste del modelo $R^2$ ajustado? 
+- ¿Las pendientes de las variables altamente correlacionadas son ambas significativas?
+
+```{r warning=FALSE, message=FALSE}
+
+lm.1<-lm(trait_y~Pred_X1+Pred_X2+Pred_X3+Pred_X4,data=aqua.dat)
+
+pander::pander(summary(lm.1), caption = "Modelo de regresión múltiple completo del set de datos aqua.dat")
+
+```
+
+### **Ejercicio 4.** Evaluación de supuestos modelo completo.
+
+Evalue los supuestos de multicolinealidad, normalidad y homogeneidad de varianzas.
+
+```{r}
+# Multicolinealidad por vif
+vif(lm.1)
+
+# Normalidad
+shapiro.test (residuals (lm.1))
+plot(lm.1, which = 2)
+
+# Homogeneidad de varianzas usando plot
+plot(lm.1, which = 1)
+
+```
+
+
+### **Ejercicio 5.** Regresión lineal múltiple - modelo reducido.
+
+Debido al problema de multicolinealidad detectado en el ejericcio anterior se puede decidir en eliminar una de las variables predictoras correlacionadas. En este caso y de forma arbitaria escogeremos la variables **Pred_X3**, pero note que podríamos estar generando un problema de cusalidad por variables omitidas. En las próximas clases veremos como resolver esto usando Análisis de Componentes Principales.
+
+**a).** Realice un análisis de regresión lineal para investigar la asociación entre **trait_y** y todas las variables predictoras menos la variable **Pred_X3** usando las funciones **lm()**, **summary()**. 
+
+```{r warning=FALSE, message=FALSE}
+
+lm.2<-lm(trait_y~Pred_X1+Pred_X2+Pred_X4,data=aqua.dat)
+
+pander::pander(summary(lm.2), caption = "Modelo de regresión múltiple reducido del set de datos aqua.dat")
+```
+
+**b).**Evalue nuevamente los supuestos de multicolinealidad, normalidad y homogeneidad de varianzas.
+
+```{r warning=FALSE, message=FALSE}
+
+# Multicolinealidad por vif
+vif(lm.2)
+
+# Normalidad
+shapiro.test (residuals (lm.1))
+qqnorm (residuals (lm.2), ylab="Residuales")
+qqline (residuals (lm.2))
+
+# Homogeneidad de varianzas graficando los residuales y los valores ajustados desde el modelo
+
+plot (x=fitted (lm.2), y= residuals (lm.2), xlab="Valores ajustados", ylab="Residuales", main = "Residuales v/s val. ajustados mod. reducido")
+abline (h=0)
+```
+
+### **Ejercicio 6.** Comparación modelo completo y modelo reducido
+
+Compare los modelos completo y reducido usando los residuales, y los criterios AIC y BIC. 
+
+- ¿Cuál es el mejor modelo?
+
+```{r}
+# Comparación usando residuales
+res <- anova(lm.1, lm.2)
+pander::pander(res, caption = "Comparación modelos usando residuales")
+
+# Comparación usando AIC
+aic <- AIC(lm.1, lm.2)
+
+pander::pander(aic, caption = "Comparación modelos usando AIC")
+
+# Comparación usando BIC
+bic <- BIC(lm.1, lm.2)
+
+pander::pander(bic, caption = "Comparación modelos usando BIC")
+
+```
+
+
