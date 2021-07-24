@@ -1,0 +1,106 @@
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(ggplot2)
+library(vegan)
+library(dplyr)
+library(psych)
+library(cluster)
+library(factoextra)
+budi_dat <- read_excel("lago_budi_dat.xlsx", sheet = 1)
+summary(budi_dat)
+new_budi_dat <- budi_dat[2:10]
+colnames(new_budi_dat) <- c("e1",	"e2",	"e3",	"e4",	"e5",	"e6",	"e7",	"e8",	"e9")
+rownames(new_budi_dat) <- c("a","b","c","d","e","f","g","h","i")
+res <- cor(new_budi_dat, method = "spearman")
+round(res[c(1:9),c(1:9)], 2)
+Bray_curtis <- vegdist(budi_dat[2:10], method="bray", binary=FALSE, diag=FALSE, upper=FALSE, na.rm = FALSE)*100
+Bray_curtis <- as.matrix(Bray_curtis)
+class(Bray_curtis)
+round(Bray_curtis[c(1:9),c(1:9)], 1)
+# Graficar un objeto
+BOD
+# Observar un objeto preexistente
+BOD
+# Obtener la clase de un objeto
+class(BOD)
+kin_example <- matrix(c(1.1,0.5,0.25,0.5,1,0.25,0.25,0.25,1), nrow= 3,
+dimnames = list(response = c("fish10", "fish20",
+"fish30"),
+treatment = c("fish10", "fish20","fish30")))
+knitr::kable(kin_example, caption = "**Tabla 1.** Coeficientes de parentesco de 3 reproductores.")
+knitr::opts_chunk$set(echo = TRUE)
+# Librería stats está instalada por defecto en la base de R
+library(stats)
+# Librería graphics está instalada por defecto en la base de R
+library(graphics)
+# Librería para importar datos
+library(readxl)
+# Librería psych para analisis de datos de matrices
+library(psych)
+# Librería para gráficas avanzadas
+library(ggplot2)
+datos <- read_excel("genotipos.xlsx")
+datos <- read_excel("genotipos.xls")
+setwd("~/Dropbox/CURSOS/VINCULACION/CursoR_Acuicultura_v21/Clase_5")
+datos <- read_excel("genotipos.xls")
+knitr::opts_chunk$set(echo = TRUE)
+# Librería stats está instalada por defecto en la base de R
+library(stats)
+# Librería graphics está instalada por defecto en la base de R
+library(graphics)
+# Librería para importar datos
+library(readxl)
+# Librería psych para analisis de datos de matrices
+library(psych)
+# Librería para gráficas avanzadas
+library(ggplot2)
+datos <- read_excel("genotipos.xls")
+setwd("~/Dropbox/CURSOS/VINCULACION/Diplomado_R/Clase_6")
+knitr::opts_chunk$set(echo = TRUE)
+# Librería stats está instalada por defecto en la base de R
+library(stats)
+# Librería graphics está instalada por defecto en la base de R
+library(graphics)
+# Librería psych para analisis de datos de matrices
+library(psych)
+# Librería para gráficas avanzadas
+library(ggplot2)
+# Librería para importar datos
+library(readxl)
+datos <- read_excel("genotipos.xlsx")
+datos <- read_excel("genotipos.xls")
+knitr::opts_chunk$set(echo = FALSE)
+library(dplyr)
+library(readxl)
+update.packages(ask = FALSE, checkBuilt = TRUE)
+tinytex::tlmgr_update()
+options(tinytex.verbose = TRUE)
+install.packages('tinytex')
+install.packages("tinytex")
+library(tinytex)
+tinytex::parse_packages()
+update.packages(ask = FALSE, checkBuilt = TRUE)
+tinytex::tlmgr_update()
+tinytex::reinstall_tinytex()
+knitr::opts_chunk$set(echo = FALSE)
+library(car)
+library(lmtest)
+knitr::include_graphics("No_par.png")
+knitr::opts_chunk$set(echo = FALSE)
+library(car)
+library(lmtest)
+d0 <- c(9,8,9,8) # day0
+d4 <- c(-1, 0) # day4
+d8 <- c(7, 12) # day8
+kruskal.test(list(d0, d4, d8))
+d0 <- c(9,8,9,8) # day0
+d4 <- c(7,7,6,8) # day4
+d8 <- c(6,5,5,6) # day8
+kruskal.test(list(d0, d4, d8))
+# Crea objetos pre y post
+pre <- c(45, 41, 47, 52)
+post <- c(49,50,52,50)
+# Realiza prueba de Wilcoxon
+wilcox.test(post - pre, alternative = "greater")
+# no es necesario indicar muestras pareadas
+# pues estamos haciendo la resta en la función.
