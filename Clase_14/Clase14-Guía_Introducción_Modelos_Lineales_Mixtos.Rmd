@@ -1,0 +1,219 @@
+---
+title: "Guía Modelos Lineales Mixtos"
+subtitle: 'Curso Introducción al Análisis de datos con R para la acuicultura'
+author:
+ name: Dr. José A. Gallardo y Dra. María Angélica Rueda.
+ affiliation: Pontificia Universidad Católica de Valparaíso
+ email: <jose.gallardo@pucv.cl>
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    code_folding: hide
+  word_document: default
+  pdf_document: default
+---
+
+<style>
+#TOC {
+  color: black;
+  font-familiy: Calibri;
+  font-size: 14px;
+  border-color: #708090; 
+}
+body {
+   color: black;
+   font-familiy: Calibri;
+}
+
+pre {
+  color: black;
+  background-color: #F8F8FF;
+}
+# header {
+  color: #800000;
+  font-familiy: Calibri;
+  background-color: #F5F5F5;
+  opacity: 0.8;
+  font-size: 16px;
+}
+</style>
+
+### MODELOS LINEALES MIXTOS
+
+Los modelos lineales mixtos (MLM) son una generalización del modelo lineal de regresión clásico, contemplando la posible existencia de observaciones correlacionadas (ej. Medidas repetidas en el mismo individuo) o con variabilidad heterogénea, vinculadas a la presencia de factores aleatorios.
+
+
+**Efecto fijo**: Los efectos fijos solo estiman medias de las variables predictoras. 
+
+**Efecto aleatorio**: Los efectos aleatorios estiman varianzas.
+
+Caracteristicas de un modelo lineal mixto (MLM)
+
+1). El MLM está conformado por efectos fijos y efectos aleatorios.
+
+2). La variable respuesta debe tener ditribución normal.
+
+3). Existencia de observaciones correlacionadas.
+
+4). Puede existir heterogeneidad de varianzas.
+
+Incumplimiento de supuestos (1 y 3):
+
+1) Hay observaciones correlacionadas.
+
+2) Los residuos se distribuyen **normalmente**.
+
+3) No hay homogeneidad de varianzas.
+
+
+#### **Objetivos de aprendizaje**
+
+Los objetivos de aprendizaje de esta guía son:
+
+**1**. - Identificar efectos fijos y efectos aleatorios.
+
+**3**. - Ajustar modelos lineales mixtos. 
+
+**3**. - Realizar gráficas avanzadas con ggplot2. 
+
+**4**. - Elaborar un reporte dinámico en formato pdf con **[Rmarkdown](https://rmarkdown.rstudio.com/)**.
+
+#### EJERCICIOS
+
+## ESTUDIO DE CASO: BLACK PORGY
+
+En este estudio de caso trabajaremos con un set de datos de 120 observaciones simuladas de black porgy.  
+
+La variable respuesta se denomina **Weight** y las variables predictoras **Diet**, **Dosis** como efectos fijos y **Family** como efecto aleatorio. Todas ellas son variables predictoras cualitativas.
+
+### **Ejercicio 1.** Elaborar y configurar Reporte en formato .Rmd
+
+Elabore un documento .Rmd y configure su reporte para exportar en .pdf. Instale solo las librerías que utilice para el análisis de los datos.
+
+```{r setup, include=TRUE, warning=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(multcomp)
+library(psych)
+library(car)
+library(nlme)
+library(lme4)
+library(readr)
+library(lmtest)
+```
+
+Ejecute cada uno de los siguientes ejercicios en uno o más bloques de códigos diferentes. Sea ordenado y documente su reporte adecuadamente.
+
+### **Ejercicio 2.** Exploratorio set de datos black_porgy
+
+Importe el set de datos **black_porgy.xls** y realice un análisis exploratorio de datos. 
+
+Incluya: 
+
+**a).** Resumen estadístico de todas las variables.
+
+```{r, warning=FALSE, message=FALSE}
+black_porgy <- read_excel("black_porgy.xlsx")
+summary(black_porgy)
+
+```
+
+**b).** Transforme las variables Dosis, Diet y Tank en factores. Luego, pida el summary() de la base de datos black_porgy.
+
+```{r, warning=FALSE, message=FALSE}
+black_porgy$Dosis <- as.factor(black_porgy$Dosis)
+black_porgy$Diet <- as.factor(black_porgy$Diet)
+black_porgy$Tank <- as.factor(black_porgy$Tank)
+black_porgy$Family <- as.factor(black_porgy$Family)
+black_porgy$ID <- as.factor(black_porgy$ID)
+summary(black_porgy)
+```
+
+**c).** Realice el exploratorio de los datos
+
+```{r}
+ggplot(data = black_porgy,aes(x= Dosis, y = Weight, fill=Diet)) +
+  geom_boxplot() + theme(legend.position = 'right')
+```
+
+```{r}
+p <- ggplot(data = black_porgy,aes(x = Dosis,y = Weight))
+p + geom_point(aes(colour = Diet)) + stat_smooth(se = FALSE)
+
+```
+
+
+**d).** Histograma de la variable respuesta **Weight**.
+
+```{r, warning=FALSE, message=FALSE}
+
+ggplot(black_porgy, aes(x=Weight))+
+  geom_histogram(color="darkblue", fill="lightblue")
+
+```
+
+### **Ejercicio 3.** Modelo de efectos fijos
+
+**a).** Ajuste un modelo donde la variable respuesta sea **Weight** y como efectos fijos del modelo las variables **_Dosis_** y **_Diet_**. Use la función **lm()**, **summary()**. 
+
+Interprete los resultados del modelo ajustado y responda las siguientes preguntas:   
+- ¿El efecto fijo Dosis es estadísticamente significativo? 
+- ¿El efecto fijo Diet es estadísticamente significativo? 
+- ¿Cuál es la bondad de ajuste del modelo $R^2$ ajustado? 
+
+```{r warning=FALSE, message=FALSE}
+
+mod.1 <- lm(Weight ~ Diet + Dosis, data = black_porgy)
+
+pander::pander(summary(mod.1), caption = "Modelo de efectos fijos de los datos black_porgy")
+
+```
+**b).** Ajuste un modelo donde la variable respuesta sea **Weight**, como efecto fijo del modelo la interacción entre **_Diet:Dosis_**. Use la función **lm()**, **summary()**. 
+
+```{r}
+mod.1.int <- lm(Weight ~ Diet:Dosis, data = black_porgy)
+
+pander::pander(summary(mod.1.int), caption = "Modelo de efectos fijos con iteracción de los datos coblack_porgy")
+```
+
+
+
+
+### **Ejercicio 4.** Modelo lineal mixto
+
+**a).** Ajuste un modelo donde la variable respuesta sea **Weight**, como efectos fijos del modelo las variables **_Diet_** y **_Dosis_** y como efecto aleatorio  **Family**. Use la función **lmer()**, **summary()**. 
+
+```{r}
+mod.2 <- lmer(Weight ~ Diet + Dosis + (1|Family), data = black_porgy)
+summary(mod.2)
+```
+
+**b).** Ajuste un modelo donde la variable respuesta sea **Weight**, como efectos fijos del modelo las variables **_Diet_**,**_Dosis_**, la interacción **Diet:Dosis** y como efecto aleatorio  **Family**. Use la función **lmer()**, **summary()**. 
+
+```{r}
+mod.2.int <- lmer(Weight ~ Diet + Dosis + Diet:Dosis + (1|Family), data = black_porgy)
+summary(mod.2.int)
+```
+
+### **Ejercicio 5.** Comparación y selección de modelos
+
+**a).** Realice la comparación de modelos con la función anova(). Comparar los dos modelos que se hicieron con lm() y por aparte realice la comparación de los dos modelos que se hicieron con lmer().  
+
+- ¿Cuál es el mejor modelo?
+
+- ¿Hubo mejoría al incorporar el efecto aleatorio de familia?
+
+```{r}
+anova(mod.1, mod.1.int)
+```
+
+
+```{r}
+anova(mod.2, mod.2.int)
+```
+
