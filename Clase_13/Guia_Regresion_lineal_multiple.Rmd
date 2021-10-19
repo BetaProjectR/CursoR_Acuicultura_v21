@@ -49,22 +49,22 @@ $$Y_{i} = \beta_{0} + \beta_{1} X_{i1} + \beta_{2} X_{i2} + ... + \beta_{p} X_{i
 
 Supuestos:
 
-1) No existe multicolinealidad.
+**1).** No existe multicolinealidad.
 
-2) Los residuos distribuyen **normalmente**.
+**2).** Los residuos distribuyen **normalmente**.
 
-3) Existe homogeneidad d evarianzas.
+**3).** Existe homogeneidad de varianzas.
 
 
 #### **Objetivos de aprendizaje**
 
 Los objetivos de aprendizaje de esta guía son:
 
-**1**. - Realizar análisis de regresión lineal múltiple.
+**1).** Realizar análisis de regresión lineal múltiple.
 
-**2**. - Realizar gráficas avanzadas con ggplot2. 
+**2).** Realizar gráficas avanzadas con ggplot2. 
 
-**3**. - Elaborar un reporte dinámico en formato pdf con **[Rmarkdown](https://rmarkdown.rstudio.com/)**.
+**3).** Elaborar un reporte dinámico en formato pdf con **[Rmarkdown](https://rmarkdown.rstudio.com/)**.
 
 #### EJERCICIOS
 
@@ -76,7 +76,7 @@ La variable respuesta se denomina **trait_y** y las variables predictoras **Pred
 
 ### **Ejercicio 1.** Elaborar y configurar Reporte en formato .Rmd
 
-Elabore un documento .Rmd y configure su reporte para exportar en .pdf. Instale solo las liberías que utilice para el análisis de los datos.
+Elabore un documento .Rmd y configure su reporte para exportar en .pdf. Instale solo las librerías que utilice para el análisis de los datos.
 
 ```{r setup, include=TRUE, warning=FALSE,message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -128,9 +128,13 @@ ggplot(aqua.dat, aes(x=trait_y))+
 **a).** Realice un análisis de regresión lineal para investigar la asociación entre **trait_y** y todas las variables predictoras usando las funciones **lm()**, **summary()**. 
 
 Interprete los resultados del modelo lineal y responda las siguientes preguntas:   
-- ¿Qué representa los diferentes estimadores Beta?. 
+
+- ¿Qué representan los diferentes estimadores Beta?. 
+
 - ¿Qué pendientes son significativamente distintas de cero?. 
+
 - ¿Cuál es la bondad de ajuste del modelo $R^2$ ajustado? 
+
 - ¿Las pendientes de las variables altamente correlacionadas son ambas significativas?
 
 ```{r warning=FALSE, message=FALSE}
@@ -143,7 +147,7 @@ pander::pander(summary(lm.1), caption = "Modelo de regresión múltiple completo
 
 ### **Ejercicio 4.** Evaluación de supuestos modelo completo.
 
-Evalue los supuestos de multicolinealidad, normalidad y homogeneidad de varianzas.
+Evalue los supuestos de multicolinealidad, normalidad y homogeneidad de varianzas. Además, realice detección de valores atípicos usando la gráfica del índice de cook (por ejemplo, plot(lm, which=4)).
 
 ```{r}
 # Multicolinealidad por vif
@@ -156,12 +160,14 @@ plot(lm.1, which = 2)
 # Homogeneidad de varianzas usando plot
 plot(lm.1, which = 1)
 
-```
+# Indice de Cook
+plot(lm.1, which=4)
 
+```
 
 ### **Ejercicio 5.** Regresión lineal múltiple - modelo reducido.
 
-Debido al problema de multicolinealidad detectado en el ejericcio anterior se puede decidir en eliminar una de las variables predictoras correlacionadas. En este caso y de forma arbitaria escogeremos la variables **Pred_X3**, pero note que podríamos estar generando un problema de cusalidad por variables omitidas. En las próximas clases veremos como resolver esto usando Análisis de Componentes Principales.
+Debido al problema de multicolinealidad detectado en el ejercicio anterior se puede decidir en eliminar una de las variables predictoras correlacionadas. En este caso y de forma arbitaria escogeremos la variables **Pred_X3**, pero note que podríamos estar generando un problema de causalidad por variables omitidas. En las próximas clases veremos como resolver esto usando Análisis de Componentes Principales.
 
 **a).** Realice un análisis de regresión lineal para investigar la asociación entre **trait_y** y todas las variables predictoras menos la variable **Pred_X3** usando las funciones **lm()**, **summary()**. 
 
@@ -190,7 +196,7 @@ plot (x=fitted (lm.2), y= residuals (lm.2), xlab="Valores ajustados", ylab="Resi
 abline (h=0)
 ```
 
-### **Ejercicio 6.** Comparación modelo completo y modelo reducido
+### **Ejercicio 6.** Comparación modelo completo y modelo reducido.
 
 Compare los modelos completo y reducido usando los residuales, y los criterios AIC y BIC. 
 
