@@ -1,0 +1,231 @@
+---
+title: "Guía Modelos Lineales Generalizados"
+subtitle: 'Curso Introducción al Análisis de datos con R para la acuicultura'
+author:
+ name: Dr. José A. Gallardo y Dra. María Angélica Rueda.
+ affiliation: Pontificia Universidad Católica de Valparaíso
+ email: <jose.gallardo@pucv.cl>
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    code_folding: hide
+  word_document: default
+  pdf_document: default
+---
+
+<style>
+#TOC {
+  color: black;
+  font-familiy: Calibri;
+  font-size: 14px;
+  border-color: #708090; 
+}
+body {
+   color: black;
+   font-familiy: Calibri;
+}
+
+pre {
+  color: black;
+  background-color: #F8F8FF;
+}
+# header {
+  color: #800000;
+  font-familiy: Calibri;
+  background-color: #F5F5F5;
+  opacity: 0.8;
+  font-size: 16px;
+}
+</style>
+
+### MODELOS LINEALES GENERALIZADOS
+
+Los modelos lineales generalizados extienden a los modelos lineales clásicos admitiendo distribuciones no normales para la variable respuesta y modelando funciones de la media.
+
+Los MLG son, por tanto, una extensión de los modelos lineales que permiten
+utilizar distribuciones no normales de los errores (binomiales, Poisson, gamma, etc) y varianzas no constantes. 
+
+Características de un modelo lineal generalizado (MLG)
+
+1). El MLG está conformado por componente aleatorio, componente sistemático y función de enlace.
+
+2). La variable respuesta/residuos pueden tener distribución normal u otros tipos de distribuciones.
+
+3). Existencia de observaciones correlacionadas.
+
+4). Puede existir heterogeneidad de varianzas.
+
+Incumplimiento de los supuestos:
+
+1) Hay observaciones correlacionadas.
+
+2) Los residuos se pueden o no distribuir **normalmente**.
+
+3) Varianza no constante.
+
+
+#### **Objetivos de aprendizaje**
+
+Los objetivos de aprendizaje de esta guía son:
+
+**1**. - Identificar componente aleatorio, componente sistemático y función de enlace.
+
+**3**. - Ajustar modelos lineales generalizados. 
+
+**3**. - Realizar gráficas. 
+
+**4**. - Elaborar un reporte dinámico en formato pdf con **[Rmarkdown](https://rmarkdown.rstudio.com/)**.
+
+#### EJERCICIOS
+
+## ESTUDIO DE CASO: BP
+
+En este estudio de caso trabajaremos con un set de datos de 120 observaciones simuladas de black porgy.  
+
+La variable respuesta se denomina **Final_Biomass** y la variable predictora **Glucose**.
+
+### **Ejercicio 1.** Elaborar y configurar Reporte en formato .Rmd
+
+Elabore un documento .Rmd y configure su reporte para exportar en .pdf. Instale solo las liberías que utilice para el análisis de los datos.
+
+```{r setup, include=TRUE, warning=FALSE,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(ggplot2)
+library(multcomp)
+library(psych)
+library(car)
+library(readr)
+library(lmtest)
+library(boot)
+```
+
+Ejecute cada uno de los siguientes ejercicios en uno o más bloques de códigos diferentes. Sea ordenado y documente su reporte adecuadamente.
+
+### **Ejercicio 2.** Exploratorio set de datos BP
+
+Importe el set de datos **BP.xls** y realice un análisis exploratorio de datos. 
+
+Incluya: 
+
+**a).** Resumen estadístico de todas las variables.
+
+```{r, warning=FALSE, message=FALSE}
+BP <- read_excel("BP.xls")
+summary(BP)
+
+```
+
+**b).** Ajuste un modelo lineal general donde la variable Final_Biomass es la variable respuesta y la variable Glucose es la variable predictora. Use la función **lm()** y haga el **summary()** del modelo.
+
+```{r}
+modelo1 <- lm(Final_Biomass~Glucose, data = BP)
+summary(modelo1)
+```
+
+**c).** Realice el grafico de puntos con la función plot() de Glucose y Final_Biomass. Realice la recta ajustada del modelo con la función abline(coef(modelo1)).
+
+```{r}
+plot(BP$Glucose, BP$Final_Biomass)
+abline(coef(modelo1))
+```
+
+**d).** Histograma de la variable respuesta **Final_Biomass**.
+
+```{r, warning=FALSE, message=FALSE}
+
+ggplot(BP, aes(x=Final_Biomass))+
+  geom_histogram(color="darkblue", fill="lightblue")
+
+```
+
+### **Ejercicio 3.** Modelo lineal generalizado (normal)
+
+**a).** Ajuste un modelo lineal generalizado donde la variable Final_Biomass es la variable respuesta y la variable Glucose es la variable predictora. Use la función glm(), considere el parámetro family= gaussian(link="identity"). Luego, realice el summary() del modelo.
+
+
+```{r warning=FALSE, message=FALSE}
+
+modelo2 <- glm(Final_Biomass~Glucose,family= gaussian(link="identity"), data = BP)
+
+summary(modelo2)
+```
+
+**b).** Pruebe es supuesto de normalidad sobre los residuos de deviance de forma gráfica. 
+
+```{r}
+qqnorm(glm.diag(modelo2)$rd)
+abline(0,1)
+```
+
+**c).** Pruebe es supuesto de normalidad sobre los residuos de deviance con la prueba de shapiro test. 
+
+```{r}
+shapiro.test(glm.diag(modelo2)$rd)
+```
+
+**d).** Obtenga la deviance nula y la deviance para obtener el coeficiente de determinación del modelo de regresión lineal con la información del modelo2. 
+
+```{r}
+modelo2$null.deviance
+modelo2$deviance
+R2 <- (modelo2$null.deviance-modelo2$deviance)/modelo2$null.deviance
+R2
+```
+
+### **Ejercicio 4.** Comparación y selección de modelos
+
+**a).** Comparar los modelos 1 y 2 con el criterio de información de Akaike usando la función anova().  
+
+```{r}
+anova(modelo1, modelo2)
+```
+
+¿Qué observó al pedir el anova de los dos modelos ajustados?
+
+### **Ejercicio 5.** Modelo lineal generalizado bernoulli (Datos_Cangrejos)
+
+El set de **Datos_cangrejos.xslx** son 173 datos de cangrejos herradura hembras de la librería de R (glmbb) llamada **_crabs_**. Donde se les midieron 6 variables. Ver descripción de dataset en <https://cran.r-project.org/web/packages/glmbb/glmbb.pdf>
+
+**a).** Resumen estadístico de todas las variables.
+```{r}
+Datos_cangrejos <- read_excel("Datos_cangrejos.xlsx")
+summary(Datos_cangrejos)
+```
+
+**b).** Ajuste un modelo lineal generalizado nulo donde la variable **y** es la variable respuesta y no hay variable predictora en ese caso colocar y en función de 1. Use la función glm(), considere el parámetro family= binomial. Luego, realice el summary() del modelo.
+
+```{r}
+modelo3 <- glm(y ~ 1, family= binomial, data = Datos_cangrejos)
+summary(modelo3)
+```
+
+**c).** Ajuste un modelo lineal generalizado donde la variable y es la variable respuesta y la variable width es la variable predictora. Use la función glm(), considere el parámetro family= binomial. Luego, realice el summary() del modelo.
+
+```{r}
+modelo4 <- glm(y~width, family= binomial, data = Datos_cangrejos)
+summary(modelo4)
+```
+
+**d).** Comparar los modelos 3 y 4 con el criterio de información de Akaike usando la función anova(). 
+
+```{r}
+anova(modelo3, modelo4)
+```
+
+**e).** Realice el exponencial de los coeficientes del modelo 4.
+
+```{r}
+exp(modelo4$coefficients)
+```
+
+**f).** ¿Cuál es la chance de tener éxito? Use el resultado del ítem e) para contestar esta pregunta.
+
+```{r}
+# La chance de tener éxito se incrementa 64.41% por cada unidad de aumento en la variable width.
+```
+
+
